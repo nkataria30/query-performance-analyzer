@@ -68,7 +68,8 @@ Open `http://localhost:5173`.
 
 Real measurements from this project's database — run, indexed, re-run.
 
-<img width="1920" height="1080" alt="Screenshot (98)" src="https://github.com/user-attachments/assets/51883970-6192-4a4a-84ad-eb0ba56ef8b3" /> <img width="1920" height="1080" alt="Screenshot (99)" src="https://github.com/user-attachments/assets/00f8c8e9-4d5d-4f06-94a1-9e19d54fc117" />
+<img width="1577" height="747" alt="image" src="https://github.com/user-attachments/assets/31ec2345-28e9-44f2-aaa5-20f7474e3615" />
+<img width="1570" height="742" alt="image" src="https://github.com/user-attachments/assets/00b5d76b-27f4-482a-9c57-76dc7e97ac58" />
 
 **1. `SELECT * FROM orders WHERE status = 'pending';`** (300K rows, no index)
 - Before: `206.25ms` — `Seq Scan on orders`
@@ -76,7 +77,8 @@ Real measurements from this project's database — run, indexed, re-run.
 - After: `12.33ms` — `Bitmap Heap Scan` + `Bitmap Index Scan`
 - **~16.7x faster**
 
-<img width="1920" height="1080" alt="Screenshot (100)" src="https://github.com/user-attachments/assets/e6d8b7b2-808a-4d6f-b564-4eba9a524d20" /> <img width="1920" height="1080" alt="Screenshot (101)" src="https://github.com/user-attachments/assets/836709e4-bd73-4220-8710-39e6937d7b69" />
+<img width="1571" height="736" alt="image" src="https://github.com/user-attachments/assets/088c8f7c-4188-46a2-ba5a-b3cbb66a20a0" />
+<img width="1567" height="747" alt="image" src="https://github.com/user-attachments/assets/c07d0f95-43da-4783-9a6c-3f716c7e75ab" />
 
 **2. `SELECT * FROM order_items WHERE order_id = 12345;`** (900K rows, no index)
 - Before: `294.16ms` — `Seq Scan on order_items`
