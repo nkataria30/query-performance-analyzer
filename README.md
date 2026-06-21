@@ -18,33 +18,14 @@ dashboard that tracks actual measured run times, not hardcoded numbers.
    once, add an index, run again, and the chart shows your real before/after.
 
 ## Architecture
-┌─────────────┐      ┌──────────────────┐      ┌─────────────────────┐
 
-│   React UI  │ ───▶ │  Express API      │ ───▶ │   PostgreSQL         │
+1. **Frontend** (`:5173`): React + Vite — dashboard, query detail view, run-history charts.
+2. **Backend** (`:4000`): Express + TypeScript — REST API, runs `EXPLAIN ANALYZE`, rule engine for detecting issues and suggesting indexes.
+3. **Database**: PostgreSQL (Neon) — `pg_stat_statements` for live query stats, source of all `EXPLAIN` plan data.
 
-│  (dashboard)│      │  - /slow-queries  │      │  - pg_stat_statements│
+The frontend calls the backend's `/slow-queries` and `/analyze` endpoints,
+which query Postgres directly and return parsed plan data + flagged issues.
 
-│             │ ◀─── │  - /analyze       │ ◀─── │  - EXPLAIN ANALYZE   │
-
-└─────────────┘      └──────────────────┘      └─────────────────────┘
-
-│
-
-▼
-
-┌──────────────────┐
-
-│  Rule engine      │
-
-│  - seq scan check │
-
-│  - sort check     │
-
-│  - row mismatch   │
-
-│  - index suggester│
-
-└──────────────────┘
 
 ## Tech stack
 
