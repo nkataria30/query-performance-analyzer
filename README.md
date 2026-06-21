@@ -68,11 +68,15 @@ Open `http://localhost:5173`.
 
 Real measurements from this project's database — run, indexed, re-run.
 
+<img width="1920" height="1080" alt="Screenshot (98)" src="https://github.com/user-attachments/assets/51883970-6192-4a4a-84ad-eb0ba56ef8b3" /> <img width="1920" height="1080" alt="Screenshot (99)" src="https://github.com/user-attachments/assets/00f8c8e9-4d5d-4f06-94a1-9e19d54fc117" />
+
 **1. `SELECT * FROM orders WHERE status = 'pending';`** (300K rows, no index)
 - Before: `206.25ms` — `Seq Scan on orders`
 - Fix: `CREATE INDEX idx_orders_status ON orders (status);`
 - After: `12.33ms` — `Bitmap Heap Scan` + `Bitmap Index Scan`
 - **~16.7x faster**
+
+<img width="1920" height="1080" alt="Screenshot (100)" src="https://github.com/user-attachments/assets/e6d8b7b2-808a-4d6f-b564-4eba9a524d20" /> <img width="1920" height="1080" alt="Screenshot (101)" src="https://github.com/user-attachments/assets/836709e4-bd73-4220-8710-39e6937d7b69" />
 
 **2. `SELECT * FROM order_items WHERE order_id = 12345;`** (900K rows, no index)
 - Before: `294.16ms` — `Seq Scan on order_items`
